@@ -1,0 +1,17 @@
+#!/bin/sh
+
+
+case "$1" in
+start)
+echo "Executing hello-world executable as daemon"
+start-stop-daemon -S -n hello-world -a /usr/bin/hello-world
+;;
+stop)
+echo "Stopping hello-world"
+start-stop-daemon -K -n hello-world
+;;
+*)
+echo "Usage: $0 {start|stop}"
+exit 1
+esac
+exit 0
