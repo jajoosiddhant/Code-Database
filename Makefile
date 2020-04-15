@@ -3,11 +3,18 @@
 # Use `make` or `make all` to build natively
 # Use `make CROSS_COMPILE=<cross-platform-binary>-gcc to cross-compile for different platforms.
 
-CC = $(CROSS_COMPILE)gcc
+ifeq ($(CC),)
+	CC = $(CROSS_COMPILE)gcc
+endif
+ifeq ($(CFLAGS),)
+	CFLAGS = -g -Wall -Werror
+endif
+ifeq ($(LDFLAGS),)
+	LDFLAGS = -pthread -lrt
+endif
+
 INCLUDES = -I/
 TARGET = hello-world
-LDFLAGS = 
-CFLAGS = -g -Wall -Werror
 
 SRC := hello-world.c
 OBJS := $(SRC:.c=.o)
